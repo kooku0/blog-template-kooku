@@ -204,13 +204,13 @@ function PostLayout({ children, frontMatter }: any) {
   }, [isLike]);
 
   const closePost = useCallback(() => {
-    closeScheme();
+    router.replace('/');
   }, []);
 
   const shareLink = useCallback(() => {
     const data = {
       title,
-      text: `카사 - ${title}`,
+      text: `${title}`,
       url: `${window.location.origin}/${__resourcePath.replace('mdx', 'html')}?shared=true`
     };
 

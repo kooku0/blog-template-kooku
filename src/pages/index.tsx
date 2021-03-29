@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import CardList from '@/components/card-list/CardList';
+import Profile from '@/components/profile';
 import TagList from '@/components/tag-list';
 import { listPostContent, PostContent } from '@/lib/posts';
 import { listTags, TagContent } from '@/lib/tags';
@@ -27,7 +28,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  padding: 56px 0 16px 16px;
+  padding: 32px 0 16px 0;
   font-size: 22px;
   font-weight: bold;
   line-height: 1.45;
@@ -186,6 +187,7 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
       <Container>
         <Section>
           <Title>Blog</Title>
+          <Profile />
         </Section>
         <Section ref={contentsRef}>
           <TagListWrapper ref={tagListRef}>

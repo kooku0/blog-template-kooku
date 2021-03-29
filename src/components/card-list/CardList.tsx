@@ -37,7 +37,7 @@ const Tag = styled.span`
 
 const Date = styled.time`
   display: block;
-  font-size: 1rem;
+  font-size: 0.7rem;
   margin-top: 0.5rem;
   color: darkgray;
   font-weight: bold;
@@ -76,8 +76,8 @@ const CardList: React.FC<CardListProps> = ({ posts }) => {
                 ?.map((tag) => (
                   <Tag key={tag.slug}>{tag.name}</Tag>
                 ))}
-              <Date dateTime={post.date}>{post.date}</Date>
               <Title>{post.title}</Title>
+              <Date dateTime={post.date}>{post.date}</Date>
             </Contents>
           </Card>
         </CardContainer>
