@@ -12,8 +12,6 @@ import SectionContainer from '@/styles/container/SectionContainer';
 import metaConfig from '~/meta-config';
 
 const Container = styled.div`
-  overflow: scroll;
-  height: 100vh;
   position: relative;
   -webkit-overflow-scrolling: auto;
   overscroll-behavior: none;
