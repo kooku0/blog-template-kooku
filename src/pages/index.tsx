@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 
 import CardList from '@/components/card-list/CardList';
 import Profile from '@/components/profile';
@@ -9,6 +8,8 @@ import TagList from '@/components/tag-list';
 import { listPostContent, PostContent } from '@/lib/posts';
 import { listTags, TagContent } from '@/lib/tags';
 import SectionContainer from '@/styles/container/SectionContainer';
+
+import metaConfig from '~/meta-config';
 
 const Container = styled.div`
   overflow: scroll;
@@ -26,10 +27,15 @@ const Container = styled.div`
 
 const Title = styled.h1`
   padding: 32px 0 16px 0;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 32px;
+  font-weight: 800;
   line-height: 1.45;
   color: black;
+
+  ${({ theme }) => theme.media.mobile} {
+    font-size: 22px;
+    font-weight: bold;
+  }
 `;
 
 const TagListWrapper = styled.div`
@@ -177,13 +183,10 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
 
   return (
     <>
-      <Head>
-        <title>Blog-template-kooku</title>
-      </Head>
       <Container>
         <Section>
           <div style={{ margin: '0 16px' }}>
-            <Title>Blog</Title>
+            <Title>{metaConfig.title}</Title>
             <Profile />
           </div>
         </Section>

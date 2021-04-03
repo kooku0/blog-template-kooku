@@ -1,6 +1,6 @@
-import '../../global.d';
+import '~/global.d';
 
-import tags from '../../meta/tags.yml';
+import tags from '~/meta/tags.yml';
 
 export type TagContent = {
   slug: string;

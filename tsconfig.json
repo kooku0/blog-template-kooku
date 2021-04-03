@@ -11,10 +11,11 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "typeRoots": ["@types", "node_modeuls/@types"],
+    "typeRoots": ["@types", "node_modeuls/@types", "global.d.ts"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "~/*": ["*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "allowJs": true,

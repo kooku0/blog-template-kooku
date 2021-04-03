@@ -7,11 +7,7 @@ import Head from 'next/head';
 import GlobalStyle from '../styles/global-styles';
 import theme from '../styles/theme';
 
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
+import metaConfig from '~/meta-config';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <title>Blog-template-kooku</title>
+        <title>{metaConfig.title}</title>
       </Head>
 
       <Global styles={GlobalStyle} />

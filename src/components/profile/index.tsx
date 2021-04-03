@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Link from 'next/link';
 
 import { flutter } from '@/styles/animations';
+
+import metaConfig from '~/meta-config';
 
 const Container = styled.div`
   display: flex;
@@ -47,14 +48,14 @@ const SocialLink = styled.div`
 const Profile: React.FC = () => {
   return (
     <Container>
-      <Image src="/profile.png" alt="profile" width="80" height="80" />
+      <Image src={metaConfig.profile} alt="profile" width="80" height="80" />
       <Contents>
         <span>Written by</span>
         <AuthorName>
-          <span>@kooku</span>
+          <span>{`@${metaConfig.author}`}</span>
         </AuthorName>
         <SocialLink>
-          <a href="https://github.com/kooku94" rel="noreferrer">
+          <a href={`https://github.com/${metaConfig.social.github}`} rel="noreferrer">
             GitHub
           </a>
         </SocialLink>

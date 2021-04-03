@@ -11,10 +11,11 @@ import markdownToHtml from '@/lib/markdownToHtml';
 import { getPostBySlug, listPostContent } from '@/lib/posts';
 import { listTags, TagContent } from '@/lib/tags';
 import color from '@/styles';
-import StyledButton from '@/styles/button';
 import SectionContainer from '@/styles/container/SectionContainer';
 import MarkdownStyle from '@/styles/MarkdownStyle';
 import { openUrl, share } from '@/utils';
+
+import metaConfig from '~/meta-config';
 
 const LayoutContainer = styled.div`
   position: relative;
@@ -220,7 +221,13 @@ function Post({ post }: PostProps) {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{`${metaConfig.title} - ${title}`}</title>
+        <meta property="og:logo" content={`${metaConfig.siteUri}/favicon.ico`} key="logo" />
+        <meta property="og:title" content={title} key="title" />
+        <meta property="og:image" content={`${metaConfig.siteUri}${cover}`} key="image" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="article" key="type" />
       </Head>
       <LayoutContainer>
         <NavBar>
@@ -244,6 +251,8 @@ function Post({ post }: PostProps) {
         <Article>
           <Container>
             <section>
+              {cover && <CoverImage src={cover} />}
+
               {tags.map(({ slug, name }) => (
                 <Tag key={slug}>{name}</Tag>
               ))}
