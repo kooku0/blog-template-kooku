@@ -50,12 +50,15 @@ const Article = styled.article``;
 const Container = styled.div`
   ${SectionContainer};
   position: relative;
-  padding-top: 24px;
   padding-bottom: 32px;
 
   ${({ theme }) => theme.media.mobile} {
     margin: 0 16px;
   }
+`;
+
+const Tags = styled.div`
+  margin-top: 24px;
 `;
 
 const Tag = styled.span`
@@ -252,10 +255,11 @@ function Post({ post }: PostProps) {
           <Container>
             <section>
               {cover && <CoverImage src={cover} />}
-
-              {tags.map(({ slug, name }) => (
-                <Tag key={slug}>{name}</Tag>
-              ))}
+              <Tags>
+                {tags.map(({ slug, name }) => (
+                  <Tag key={slug}>{name}</Tag>
+                ))}
+              </Tags>
               <header>
                 <Title>{title}</Title>
               </header>
