@@ -3,8 +3,8 @@ import '~/global.d';
 import tags from '~/meta/tags.yml';
 
 export type TagContent = {
-  slug: string;
-  name: string;
+  readonly slug: string;
+  readonly name: string;
 };
 
 const tagMap: { [key: string]: TagContent } = generateTagMap();

@@ -91,7 +91,7 @@ interface HomeProps {
 }
 
 const NAVBAR_HEIGHT = 50;
-const MIN_WINDOW_HEIGHT = 600;
+const MIN_WINDOW_HEIGHT = 500;
 const CARD_LIST_CLASSNAME_POSTFIX = '-list';
 
 const parsedListClassName = (slug: string) => {
@@ -121,7 +121,7 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
     });
 
     setHeightByTag(heights);
-  }, [contentsRef.current]);
+  }, []);
 
   useEffect(() => {
     if (contentsRef.current) {

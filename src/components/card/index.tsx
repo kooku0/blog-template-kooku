@@ -5,7 +5,6 @@ import Link from 'next/link';
 const Container = styled.div<{ width?: number }>`
   width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: 100%;
-  background-color: white;
   overflow: hidden;
   cursor: pointer;
 `;

@@ -8,6 +8,7 @@ import metaConfig from '~/meta-config';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 16px;
 `;
 
 const Image = styled.img`
