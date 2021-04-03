@@ -20,6 +20,9 @@ const Container = styled.div`
   scroll-behavior: smooth;
   scrollbar-width: none;
 
+  scroll-snap-type: y proximity;
+  scroll-snap-stop: normal;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -47,6 +50,7 @@ const TagListWrapper = styled.div`
 
 const Section = styled.section`
   ${SectionContainer};
+  scroll-snap-align: start;
 `;
 
 const Posts = styled.div`
