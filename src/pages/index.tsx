@@ -181,9 +181,11 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
         <title>Blog-template-kooku</title>
       </Head>
       <Container>
-        <Section style={{ margin: '0 16px' }}>
-          <Title>Blog</Title>
-          <Profile />
+        <Section>
+          <div style={{ margin: '0 16px' }}>
+            <Title>Blog</Title>
+            <Profile />
+          </div>
         </Section>
         <Section ref={contentsRef}>
           <TagListWrapper ref={tagListRef}>

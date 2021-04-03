@@ -21,6 +21,7 @@ const LayoutContainer = styled.div`
 `;
 
 const NavBar = styled.nav`
+  ${SectionContainer};
   position: sticky;
   left: 0;
   right: 0;
@@ -120,9 +121,6 @@ const LikeButton = styled.button<{ isLike: boolean }>`
 `;
 
 const ShareButton = styled.button`
-  ${({ theme }) => theme.media.desktop} {
-    visibility: hidden;
-  }
   background-color: ${({ theme }) => theme.color.grey300};
   color: ${({ theme }) => theme.color.grey600};
   & > img {
