@@ -19,13 +19,11 @@ In this template
 
 ### PC
 
-![img](./assets/screenshot-main-pc.png)
-![img](./assets/screenshot-post-pc.png)
+![img](./assets/screenshot-pc.png)
 
 ### Mobile
 
-![img](./assets/screenshot-main-mobile.png)
-![img](./assets/screenshot-post-mobile.png)
+![img](./assets/screenshot-mobile.png)
 
 ![gif](./assets/demo.gif)
 
