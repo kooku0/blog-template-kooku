@@ -57,7 +57,7 @@ collections:
       - label: 'Cover'
         name: 'cover'
         widget: 'image'
-        default: '/images/600x300.png'
+        default: '/images/sample-cover.png'
       - label: Tags
         label_singular: 'Tag'
         name: 'tags'
