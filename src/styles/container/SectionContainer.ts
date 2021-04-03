@@ -15,7 +15,6 @@ const SectionContainer = css`
 
   ${theme.media.mobile} {
     max-width: 100%;
-    margin: 0 16px;
   }
 `;
 

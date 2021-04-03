@@ -1,12 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const withMdxEnhanced = require('next-mdx-enhanced');
-const rehypePrism = require('@mapbox/rehype-prism');
-
-module.exports = withMdxEnhanced({
-  layoutPath: 'src/layouts',
-  defaultLayout: true,
-  rehypePlugins: [rehypePrism]
-})({
+module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push(
       ...[
@@ -19,4 +11,4 @@ module.exports = withMdxEnhanced({
     );
     return config;
   }
-});
+};

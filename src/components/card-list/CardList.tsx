@@ -14,7 +14,7 @@ const Container = styled.div`
 const CardContainer = styled.div`
   flex: 0 0 auto;
   overflow: hidden;
-  margin: 10px 2px;
+  margin: 10px 16px;
   border-radius: 8px;
   padding: 16px;
   border: 2px solid lightgray;

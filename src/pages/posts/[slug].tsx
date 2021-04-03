@@ -7,25 +7,24 @@ import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 
 import CoverImage from '@/components/cover-image';
-import { listTags } from '@/lib/tags';
+import markdownToHtml from '@/lib/markdownToHtml';
+import { getPostBySlug, listPostContent } from '@/lib/posts';
+import { listTags, TagContent } from '@/lib/tags';
 import color from '@/styles';
 import StyledButton from '@/styles/button';
 import SectionContainer from '@/styles/container/SectionContainer';
 import MarkdownStyle from '@/styles/MarkdownStyle';
-import { closeScheme, openScheme, openUrl, shareScheme, webView } from '@/utils';
+import { openUrl, share } from '@/utils';
 
 const LayoutContainer = styled.div`
   position: relative;
 `;
 
-const NavBar = styled.nav<{ isWebView: boolean }>`
-  position: fixed;
+const NavBar = styled.nav`
+  position: sticky;
   left: 0;
   right: 0;
   top: 0;
-  opacity: ${({ isWebView }) => (isWebView ? 1 : 0)};
-  transition: all 0.3s ease-in-out;
-  transition-delay: 0.4s;
   padding-left: 16px;
   padding-right: 16px;
   z-index: 999;
@@ -44,18 +43,17 @@ const NavIconContainer = styled.div`
 
 const SvgIcon = styled.img``;
 
-const Article = styled.article<{ isWebView: boolean }>`
-  ${({ theme }) => theme.media.mobile} {
-    transform: ${({ isWebView }) => isWebView && 'translateY(48px)'};
-    transition: all 0.5s ease-in-out;
-  }
-`;
+const Article = styled.article``;
 
 const Container = styled.div`
   ${SectionContainer};
   position: relative;
   padding-top: 24px;
   padding-bottom: 32px;
+
+  ${({ theme }) => theme.media.mobile} {
+    margin: 0 16px;
+  }
 `;
 
 const Tag = styled.span`
@@ -87,16 +85,13 @@ const Markdown = styled.div`
   font-size: 18px;
 `;
 
-const ButtonContainer = styled.div<{ isWebView: boolean }>`
+const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 48px;
   justify-content: center;
-  ${({ theme }) => theme.media.mobile} {
-    margin-bottom: ${({ isWebView }) => (isWebView ? '0' : '86px')};
-    transition: all 1s ease-in-out;
-  }
+
   button {
     width: 240px;
     height: 48px;
@@ -136,44 +131,51 @@ const ShareButton = styled.button`
   }
 `;
 
-function PostLayout({ children, frontMatter }: any) {
-  const [isLike, setIsLike] = useState(false);
-  const [isWebView, setIsWebView] = useState<null | boolean>(null);
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const post = getPostBySlug(params.slug, ['title', 'slug', 'author', 'content', 'cover', 'tags']);
+  const content = await markdownToHtml(post.content || '');
 
-  const { title, date, slug, tags, __resourcePath } = frontMatter;
-  const tagList = listTags();
-  const router = useRouter();
-
-  useEffect(() => {
-    const { shared } = router.query;
-
-    if (shared) {
-      setIsWebView(!JSON.parse(shared as string));
-    } else if (navigator) {
-      setIsWebView(webView());
-    }
-
-    function handleClickEvent(e: MouseEvent) {
-      const origin = (e.target as Element)?.closest('a');
-
-      if (origin) {
-        e.preventDefault();
-        if (shared && JSON.parse(shared as string)) {
-          window.open((e.target as HTMLAnchorElement).href, '_blank', 'noopener');
-        } else {
-          openScheme({
-            url: (e.target as HTMLAnchorElement).href,
-            needSession: false,
-            hideToolbar: true
-          });
-        }
+  return {
+    props: {
+      post: {
+        ...post,
+        content
       }
     }
+  };
+}
 
-    document.addEventListener('click', handleClickEvent);
+export async function getStaticPaths() {
+  const posts = listPostContent();
 
-    return () => document.removeEventListener('click', handleClickEvent);
-  }, [router]);
+  return {
+    paths: posts.map((post) => {
+      return {
+        params: {
+          slug: post.slug
+        }
+      };
+    }),
+    fallback: false
+  };
+}
+
+interface PostProps {
+  post: {
+    author: string;
+    content: string;
+    cover: string;
+    slug: string;
+    title: string;
+    tags: TagContent[];
+  };
+}
+
+function Post({ post }: PostProps) {
+  const { content, cover, slug, title, tags } = post;
+  const [isLike, setIsLike] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -211,19 +213,19 @@ function PostLayout({ children, frontMatter }: any) {
     const data = {
       title,
       text: `${title}`,
-      url: `${window.location.origin}/${__resourcePath.replace('mdx', 'html')}?shared=true`
+      url: `${window.location.origin}/posts/${slug}?shared=true`
     };
 
-    shareScheme(data);
-  }, [isWebView]);
+    share(data);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>카사 - {title}</title>
+        <title>{title}</title>
       </Head>
       <LayoutContainer>
-        <NavBar isWebView={isWebView === true}>
+        <NavBar>
           <div onClick={closePost}>
             <Icon path={mdiClose} size="24" color={color.grey600} />
           </div>
@@ -241,21 +243,21 @@ function PostLayout({ children, frontMatter }: any) {
           </NavIconContainer>
         </NavBar>
 
-        <Article isWebView={isWebView === true}>
+        <Article>
           <Container>
             <section>
-              {tags.map((tag: string) => (
-                <Tag key={tag}>{tagList.find(({ slug }) => slug === tag)?.name}</Tag>
+              {tags.map(({ slug, name }) => (
+                <Tag key={slug}>{name}</Tag>
               ))}
               <header>
                 <Title>{title}</Title>
               </header>
 
               <Contents>
-                <Markdown>{children}</Markdown>
+                <Markdown dangerouslySetInnerHTML={{ __html: content }} />
               </Contents>
 
-              <ButtonContainer isWebView={isWebView === true}>
+              <ButtonContainer>
                 <LikeButton onClick={toggleLike} isLike={isLike} className="like-button">
                   <Icon
                     className="like-button"
@@ -263,7 +265,7 @@ function PostLayout({ children, frontMatter }: any) {
                     color={isLike ? color.grey350 : color.blue700}
                     size="20"
                   />
-                  도움을 받았어요
+                  LIKE
                 </LikeButton>
 
                 <ShareButton onClick={shareLink} className="share-button">
@@ -274,7 +276,7 @@ function PostLayout({ children, frontMatter }: any) {
                     width="20"
                     className="share-button"
                   />
-                  공유하기
+                  SHARE
                 </ShareButton>
               </ButtonContainer>
             </section>
@@ -285,4 +287,4 @@ function PostLayout({ children, frontMatter }: any) {
   );
 }
 
-export default PostLayout;
+export default Post;

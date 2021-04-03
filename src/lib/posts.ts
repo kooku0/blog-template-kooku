@@ -1,12 +1,12 @@
 import fs from 'fs';
-import path from 'path';
+import path, { join } from 'path';
 
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 
-import { listTags, TagContent } from './tags';
+import { getTag, listTags, TagContent } from './tags';
 
-const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
+const postsDirectory = path.join(process.cwd(), '_posts');
 
 export type PostContent = {
   readonly date: string;
@@ -73,4 +73,37 @@ export function countPosts(tag?: string): number {
 
 export function listPostContent(): PostContent[] {
   return fetchPostContent();
+}
+
+export function getPostBySlug(slug: string, fields: string[] = []) {
+  const realSlug = slug.replace(/\.mdx$/, '');
+  const fullPath = join(postsDirectory, `${realSlug}.mdx`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+  const tags = listTags();
+
+  const items: any = {};
+
+  // Ensure only the minimal needed data is exposed
+  fields.forEach((field) => {
+    if (field === 'slug') {
+      items[field] = realSlug;
+    }
+    if (field === 'content') {
+      items[field] = content;
+    }
+
+    if (data[field]) {
+      items[field] = data[field];
+    }
+
+    if (field === 'tags') {
+      items[field] = items[field].map((item: string) => ({
+        slug: item,
+        name: getTag(item).name
+      }));
+    }
+  });
+
+  return items;
 }

@@ -19,9 +19,6 @@ const Container = styled.div`
   scroll-behavior: smooth;
   scrollbar-width: none;
 
-  scroll-snap-type: y proximity;
-  scroll-snap-stop: normal;
-
   &::-webkit-scrollbar {
     display: none;
   }
@@ -43,8 +40,7 @@ const TagListWrapper = styled.div`
 `;
 
 const Section = styled.section`
-  ${SectionContainer}
-  scroll-snap-align: start;
+  ${SectionContainer};
 `;
 
 const Posts = styled.div`
@@ -66,14 +62,14 @@ const CardListContainer = styled.div<{ tagIndex: number }>`
 
 export const getStaticProps: GetStaticProps = async () => {
   const tagSet = new Set();
-
   const posts = listPostContent();
+  let tags = listTags();
+
   posts.forEach((post) =>
     post.tags?.forEach((tag) => tagSet.has(tag.slug) || tagSet.add(tag.slug))
   );
 
-  let tags = listTags();
-  tags = tags.filter((tag) => tagSet.has(tag.slug) && tag.slug !== 'topic');
+  tags = tags.filter((tag) => tagSet.has(tag.slug));
 
   return {
     props: {
@@ -89,7 +85,7 @@ interface HomeProps {
 }
 
 const NAVBAR_HEIGHT = 50;
-const MIN_WINDOW_HEIGHT = 500;
+const MIN_WINDOW_HEIGHT = 600;
 const CARD_LIST_CLASSNAME_POSTFIX = '-list';
 
 const parsedListClassName = (slug: string) => {
@@ -185,7 +181,7 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
         <title>Blog-template-kooku</title>
       </Head>
       <Container>
-        <Section>
+        <Section style={{ margin: '0 16px' }}>
           <Title>Blog</Title>
           <Profile />
         </Section>
