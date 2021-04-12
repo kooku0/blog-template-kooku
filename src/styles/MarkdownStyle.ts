@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 const MarkdownStyle = css`
-  @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
   time {
     color: #9b9b9b;
   }
