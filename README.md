@@ -13,6 +13,9 @@ In this template
 - Enhance UX
 - Shared Link
 
+## Usecase
+- [kooku-log](http://kooku-log.netlify.app)
+
 ## Demo
 
 - [Demo Site](http://blog-template-kooku.netlify.app/)
