@@ -18,6 +18,7 @@
     "no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-unused-expressions": ["error"],
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react-hooks/exhaustive-deps": "off"
   }
 }

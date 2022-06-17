@@ -1,20 +1,19 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { DOMElement, ReactElement, useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { mdiClose, mdiHeart, mdiHeartOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import CoverImage from '@/components/cover-image';
 import markdownToHtml from '@/lib/markdownToHtml';
 import { getPostBySlug, listPostContent } from '@/lib/posts';
-import { listTags, TagContent } from '@/lib/tags';
+import { TagContent } from '@/lib/tags';
 import color from '@/styles';
 import SectionContainer from '@/styles/container/SectionContainer';
 import MarkdownStyle from '@/styles/MarkdownStyle';
-import { openUrl, share } from '@/utils';
-
+import { share } from '@/utils';
 import metaConfig from '~/meta-config';
 
 const LayoutContainer = styled.div`
@@ -256,8 +255,8 @@ function Post({ post }: PostProps) {
             <section>
               {cover && <CoverImage src={cover} />}
               <Tags>
-                {tags.map(({ slug, name }) => (
-                  <Tag key={slug}>{name}</Tag>
+                {tags.map(({ slug: tagSlug, name }) => (
+                  <Tag key={tagSlug}>{name}</Tag>
                 ))}
               </Tags>
               <header>

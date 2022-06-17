@@ -8,13 +8,13 @@ export const closeScheme = () => {
   document.location.href = '/';
 };
 
-export const share = async (data: Required<ShareData>) => {
+export const share = async (data: ShareData) => {
   if (navigator.share) {
     navigator.share(data);
   } else if (await navigator.clipboard) {
-      await navigator.clipboard.writeText(data.url);
-      alert('Copy URI');
-    }
+    await navigator.clipboard.writeText(data.url as string);
+    alert('Copy URI');
+  }
 };
 
 export function openUrl(url: string) {
