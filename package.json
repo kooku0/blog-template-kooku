@@ -33,6 +33,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.1.2",
     "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@netlify/plugin-nextjs": "^4.9.1",
     "@types/jest": "^26.0.20",
     "@types/js-yaml": "^4.0.0",
     "@types/loadable__component": "^5.13.3",
