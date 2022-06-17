@@ -6,4 +6,49 @@ cover: /images/600x300.png
 tags:
   - javascript
 ---
-sample post
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script defer src="./defer.js"></script>
+    <script async src="./async.js"></script>
+    <script src="./sample.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css"
+    />
+    <script>
+      console.log('in head');
+      window.addEventListener('DOMContentLoaded', function () {
+        console.log('DOMContentLoaded is loaded');
+      });
+
+      window.onload = function () {
+        console.log('window is loaded');
+      };
+    </script>
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      console.log('end of body');
+    </script>
+  </body>
+</html>
+```
+
+```
+async
+in sample
+in head
+end of body
+defer
+DOMContentLoaded is loaded
+window is loaded
+```

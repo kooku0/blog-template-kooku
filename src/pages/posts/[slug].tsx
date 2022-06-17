@@ -87,7 +87,6 @@ const Contents = styled.div`
 
 const Markdown = styled.div`
   ${MarkdownStyle};
-  font-size: 18px;
 `;
 
 const ButtonContainer = styled.div`
@@ -231,6 +230,7 @@ function Post({ post }: PostProps) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:type" content="article" key="type" />
+        <link rel="preload" as="style" href="github-markdown.css" />
       </Head>
       <LayoutContainer>
         <NavBar>
@@ -252,7 +252,7 @@ function Post({ post }: PostProps) {
         </NavBar>
 
         <Article>
-          <Container>
+          <Container className="markdown-body">
             <section>
               {cover && <CoverImage src={cover} />}
               <Tags>
