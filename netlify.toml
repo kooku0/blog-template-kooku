@@ -1,3 +1,3 @@
 [build]
-  publish = ".next"
+  publish = "out"
   command = "npm run export"
